@@ -8,6 +8,7 @@ export const getAllNotes = (_req: Request, res: Response) => {
     const notes = db.getAllNotes();
     res.json(notes);
   } catch (error) {
+    console.error('Error fetching notes:', error);
     res.status(500).json({ error: 'Failed to fetch notes' });
   }
 };
@@ -23,6 +24,7 @@ export const getNoteById = (req: Request, res: Response) => {
     
     res.json(note);
   } catch (error) {
+    console.error('Error fetching note:', error);
     res.status(500).json({ error: 'Failed to fetch note' });
   }
 };
@@ -38,6 +40,7 @@ export const createNote = (req: Request, res: Response) => {
     const note = db.createNote({ title, content });
     res.status(201).json(note);
   } catch (error) {
+    console.error('Error creating note:', error);
     res.status(500).json({ error: 'Failed to create note' });
   }
 };
@@ -55,6 +58,7 @@ export const updateNote = (req: Request, res: Response) => {
     
     res.json(note);
   } catch (error) {
+    console.error('Error updating note:', error);
     res.status(500).json({ error: 'Failed to update note' });
   }
 };
@@ -70,6 +74,7 @@ export const deleteNote = (req: Request, res: Response) => {
     
     res.status(204).send();
   } catch (error) {
+    console.error('Error deleting note:', error);
     res.status(500).json({ error: 'Failed to delete note' });
   }
 };
