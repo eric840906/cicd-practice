@@ -52,7 +52,7 @@ class NotesDatabase {
 
   updateNote(id: number, note: Partial<NoteInput>): Note | undefined {
     const updates: string[] = [];
-    const values: any[] = [];
+    const values: (string | number)[] = [];
 
     if (note.title !== undefined) {
       updates.push('title = ?');
