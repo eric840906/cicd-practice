@@ -23,6 +23,7 @@ This guide walks you through deploying both the frontend and backend of your app
 3. Configure the service:
 
    **Basic Settings:**
+
    - Name: `notes-app-backend` (or your choice)
    - Region: Choose closest to your users
    - Branch: `main`
@@ -30,10 +31,12 @@ This guide walks you through deploying both the frontend and backend of your app
    - Runtime: `Node`
 
    **Build & Deploy:**
+
    - Build Command: `npm install && npm run build`
    - Start Command: `npm start`
 
    **Advanced:**
+
    - Auto-Deploy: `Yes` (deploys on every push to main)
 
 4. Click **"Create Web Service"**
@@ -48,6 +51,7 @@ This guide walks you through deploying both the frontend and backend of your app
 ### Step 4: Add Environment Variables (Optional)
 
 In Render dashboard → Environment:
+
 ```
 NODE_ENV=production
 PORT=3001
@@ -73,6 +77,7 @@ vercel link
 ```
 
 Follow the prompts:
+
 - Set up and deploy? **Y**
 - Which scope? Choose your account
 - Link to existing project? **N**
@@ -82,6 +87,7 @@ Follow the prompts:
 ### Step 3: Get Vercel Credentials
 
 #### Get Vercel Token:
+
 1. Go to [vercel.com/account/tokens](https://vercel.com/account/tokens)
 2. Click **"Create Token"**
 3. Name it `GitHub Actions`
@@ -89,6 +95,7 @@ Follow the prompts:
 5. Copy the token immediately (you won't see it again!)
 
 #### Get Organization ID:
+
 ```bash
 vercel whoami
 # Note the "id" field
@@ -96,8 +103,10 @@ vercel whoami
 
 Or get it from your project settings URL:
 `https://vercel.com/[ORG_ID]/[PROJECT_NAME]`
+`https://vercel.com/erichchius-projects/cicd-pratice`
 
 #### Get Project ID:
+
 ```bash
 cd frontend
 cat .vercel/project.json
@@ -108,8 +117,10 @@ Look for the `"projectId"` field.
 ### Step 4: Configure Environment Variables
 
 In Vercel dashboard → Settings → Environment Variables:
+
 ```
 VITE_API_URL=https://your-backend-url.onrender.com/api
+VITE_API_URL=https://cicd-practice-o2r3.onrender.com/api
 ```
 
 Replace `your-backend-url` with your Render service URL.
@@ -122,17 +133,17 @@ Replace `your-backend-url` with your Render service URL.
 
 ### Required Secrets:
 
-| Secret Name | Value | Where to Get It |
-|-------------|-------|-----------------|
-| `RENDER_DEPLOY_HOOK` | Deploy hook URL | Render dashboard → Settings → Deploy Hook |
-| `VERCEL_TOKEN` | Your Vercel token | vercel.com/account/tokens |
-| `VERCEL_ORG_ID` | Your organization ID | From `vercel whoami` or project URL |
-| `VERCEL_PROJECT_ID` | Your project ID | From `.vercel/project.json` |
+| Secret Name          | Value                | Where to Get It                           |
+| -------------------- | -------------------- | ----------------------------------------- |
+| `RENDER_DEPLOY_HOOK` | Deploy hook URL      | Render dashboard → Settings → Deploy Hook |
+| `VERCEL_TOKEN`       | Your Vercel token    | vercel.com/account/tokens                 |
+| `VERCEL_ORG_ID`      | Your organization ID | From `vercel whoami` or project URL       |
+| `VERCEL_PROJECT_ID`  | Your project ID      | From `.vercel/project.json`               |
 
 ### Optional Secrets:
 
-| Secret Name | Value | Description |
-|-------------|-------|-------------|
+| Secret Name    | Value       | Description                                                    |
+| -------------- | ----------- | -------------------------------------------------------------- |
 | `VITE_API_URL` | Backend URL | Production API URL (e.g., `https://your-app.onrender.com/api`) |
 
 ## ✅ Verify Setup
@@ -225,24 +236,28 @@ curl -X POST https://your-backend-url.onrender.com/api/notes \
 ## 🐛 Common Issues
 
 ### Backend deployment fails
+
 - **Check build logs in Render dashboard**
 - Verify build command is correct
 - Ensure all dependencies are in package.json
 - Check Node version matches local development
 
 ### Frontend can't connect to backend
+
 - **Check `VITE_API_URL` environment variable**
 - Verify backend is deployed and running
 - Check CORS settings in backend
 - Look at browser console for errors
 
 ### GitHub Actions fails
+
 - **Check GitHub Secrets are set correctly**
 - Verify secret names match exactly (case-sensitive)
 - Check token/hook URLs are valid
 - Look at Action logs for specific errors
 
 ### Deploy hook doesn't trigger
+
 - **Verify the hook URL is correct**
 - Check Render dashboard for webhook logs
 - Ensure secret is properly set in GitHub
@@ -251,17 +266,20 @@ curl -X POST https://your-backend-url.onrender.com/api/notes \
 ## 🔍 Monitoring Your Apps
 
 ### Render (Backend)
+
 - Dashboard → Your Service → Logs
 - Monitor for errors, performance
 - Check deployment history
 
 ### Vercel (Frontend)
+
 - Dashboard → Your Project → Deployments
 - Monitor build times
 - Check deployment previews
 - Analytics (if enabled)
 
 ### GitHub Actions
+
 - Repository → Actions tab
 - View workflow runs
 - Check job statuses
@@ -272,16 +290,19 @@ curl -X POST https://your-backend-url.onrender.com/api/notes \
 Once deployed:
 
 1. **Set up monitoring**
+
    - Add error tracking (e.g., Sentry)
    - Set up uptime monitoring
    - Configure alerts
 
 2. **Add staging environment**
+
    - Create separate Render/Vercel projects
    - Deploy from `develop` branch
    - Test before production
 
 3. **Implement feature flags**
+
    - Safely roll out features
    - A/B testing
    - Quick rollbacks
@@ -301,6 +322,7 @@ Once deployed:
 ---
 
 **Need help?** Check the logs in:
+
 1. GitHub Actions (for CI/CD issues)
 2. Render Dashboard (for backend issues)
 3. Vercel Dashboard (for frontend issues)
